@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="./output.css">
   
   <title>Frontend Mentor | Contact form</title>
 
@@ -16,33 +17,42 @@
 </head>
 <body>
 
-  Contact Us
+  <main>
+    <h1>Contact Us</h1>
+    
+    <form method="post">
+      First Name
+      <input type="text" name="" id="" required>
+      This field is required
+      
+      Last Name
+      <input type="text" name="" id="" required>
+      This field is required
+      Email Address
+      <input type="email" name="" id="" required>
+      Please enter a valid email address
+      This field is required
 
-  First Name
-  This field is required
-
-  Last Name
-  This field is required
-
-  Email Address
-  Please enter a valid email address
-  This field is required
-
-  Query Type
-  General Enquiry
-  Support Request
-  Please select a query type
-
-  Message
-  This field is required
-
-  I consent to being contacted by the team
-  To submit this form, please consent to being contacted
-
-  Submit
-
-  Message Sent!
-  Thanks for completing the form. We'll be in touch soon!
+      <fieldset>
+        <legend>Query Type</legend>
+        <input type="radio" name="" id="">
+        <label for="">General Enquiry</label>
+        <input type="radio" name="" id="">
+        <label for="">Support Request</label>
+        Please select a query type
+      </fieldset>
+      
+      Message
+      <input type="text" name="" id="">
+      This field is required
+      <input type="checkbox" name="" id="">I consent to being contacted by the team
+      To submit this form, please consent to being contacted
+      <input type="button" value="Submit" onclick="submit()">
+      
+      Message Sent!
+      Thanks for completing the form. We'll be in touch soon!
+    </form>
+  </main>
   
 
   <!-- <div class="attribution">
