@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  <link rel="stylesheet" href="./output.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./src/output.css">
   
   <title>Frontend Mentor | Contact form</title>
 
@@ -15,42 +18,45 @@
     .attribution a { color: hsl(228, 45%, 44%); }
   </style> -->
 </head>
-<body>
+<body class="font-karla bg-[#E2F1E7] flex items-center justify-center w-screen h-screen">
 
-  <main>
-    <h1>Contact Us</h1>
+  <main class="bg-white w-[310px] rounded-2xl p-5">
+    <h1 class="pb-5 text-[#30403C] text-3xl font-semibold">Contact Us</h1>
     
-    <form method="post">
-      First Name
-      <input type="text" name="" id="" required>
-      This field is required
+    <form method="post" class="flex flex-col ">
+      <label class="pb-2 text-[#2A4144] text-sm " for="fname">First Name</label>
+      <input class="mb-5 border border-[#87A3A6] rounded-lg p-2.5" type="text" name="fname" id="fname" required>
+      <!--This field is required-->
       
-      Last Name
-      <input type="text" name="" id="" required>
-      This field is required
-      Email Address
-      <input type="email" name="" id="" required>
-      Please enter a valid email address
-      This field is required
+      <label class="pb-2 text-[#2A4144] text-sm" for="lname">Last Name</label>
+      <input class="mb-5 border border-[#87A3A6] rounded-lg p-2.5" type="text" name="lname" id="lname" required>
+      <!--This field is required-->
 
-      <fieldset>
-        <legend>Query Type</legend>
-        <input type="radio" name="" id="">
-        <label for="">General Enquiry</label>
-        <input type="radio" name="" id="">
-        <label for="">Support Request</label>
-        Please select a query type
+      <label class="pb-2 text-[#2A4144] text-sm" for="email">Email Address</label>
+      <input class="mb-5 border border-[#87A3A6] rounded-lg p-2.5" type="email" name="email" id="email" required>
+      <!-- Please enter a valid email address
+      This field is required-->
+
+      <fieldset class="mb-5 flex flex-col gap-3.5">
+        <legend class="pb-2 text-[#2A4144] text-sm">Query Type</legend>
+          <label class="text-[#2A4144] border  border-[#87A3A6] rounded-lg p-2.5" for="general"><input class="ml-2.5 mr-2.5" type="radio" name="type" id="general">General Enquiry</label>
+          <label class="text-[#2A4144] border  border-[#87A3A6] rounded-lg p-2.5" for="support"><input class="ml-2.5 mr-2.5" type="radio" name="type" id="support">Support Request</label>
+        <!--Please select a query type-->
       </fieldset>
       
-      Message
-      <input type="text" name="" id="">
-      This field is required
-      <input type="checkbox" name="" id="">I consent to being contacted by the team
-      To submit this form, please consent to being contacted
-      <input type="button" value="Submit" onclick="submit()">
+      <label class="pb-2 text-[#2A4144] text-sm" for="message">Message</label>
+      <textarea class="resize-none h-[200px] border border-[#87A3A6] rounded-lg p-2.5" name="message" id="message"></textarea>
+      <!--This field is required-->
+
+      <label class="mb-7 mt-7 text-[#2A4144] flex flex-row"  for="terms">
+        <input class="mr-1.5" type="checkbox" name="terms" id="terms">
+        <p class="pl-2.5 pr-4.5 text-sm">I consent to being contacted by the team</p>
+      </label>
+      <!--To submit this form, please consent to being contacted-->
+      <input class=" border border-[#87A3A6] rounded-lg p-2.5 bg-[#0C7C69] text-white" type="button" value="Submit" onclick="submit()">
       
-      Message Sent!
-      Thanks for completing the form. We'll be in touch soon!
+      <!-- Message Sent!
+      Thanks for completing the form. We'll be in touch soon! -->
     </form>
   </main>
   
