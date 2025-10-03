@@ -3,3 +3,7 @@
 @theme {
   --font-karla: "Karla", sans-serif;
 }
+
+@theme {
+  --breakpoint-desktop: 735px;
+}
