@@ -36,8 +36,16 @@ function verifyEmail(e) {
   
 }
 
+
 function handleSubmit (event) {
   event.preventDefault()
+
+  document.querySelectorAll('#form span').forEach(span => span.remove()) // Remove as mensagens de erro.
+
+  document.querySelectorAll('#fname, #lname, #email, #message').forEach(el => { // Remove o estilo da mensagem de erro a adiciona o estilo padrão.
+  el.classList.remove('border-[#D73C3C]')    
+  el.classList.add('border-[#87A3A6]', 'mb-5') 
+})
 
   sucessState.innerHTML = ""
   sucessState.removeAttribute("class")
@@ -83,7 +91,194 @@ function handleSubmit (event) {
       </div> */
     
   } else {
-    window.alert('Algo deu errado!')
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+      if (fname.value.length == 0) {
+        let fname_required = document.getElementById('fname-required')
+        fname.classList.remove('mb-5', 'border-[#87A3A6]')
+        fname.classList.add('border-[#D73C3C]')
+        let span = document.createElement('span')
+        span.setAttribute('class', 'pt-2 text-[#D73C3C] text-sm mb-5')
+        span.innerHTML = 'This field is required'
+
+        fname_required.appendChild(span)
+      }
+
+      if (lname.value.length == 0) {
+        let lname_required = document.getElementById('lname-required')
+        lname.classList.remove('mb-5', 'border-[#87A3A6]')
+        lname.classList.add('border-[#D73C3C]')
+        let span = document.createElement('span')
+        span.setAttribute('class', 'pt-2 text-[#D73C3C] text-sm mb-5')
+        span.innerHTML = 'This field is required'
+
+        lname_required.appendChild(span)
+      }
+
+      if (email.value.length == 0) {
+        let email_required = document.getElementById('email-required')
+        email.classList.remove('mb-5', 'border-[#87A3A6]')
+        email.classList.add('border-[#D73C3C]')
+        let span = document.createElement('span')
+        span.setAttribute('class', 'pt-2 text-[#D73C3C] text-sm mb-5')
+        span.innerHTML = 'This field is required'
+
+        email_required.appendChild(span)
+      } else if (!regex.test(email.value)) {
+        let email_required = document.getElementById('email-required')
+        email.classList.remove('mb-5', 'border-[#87A3A6]')
+        email.classList.add('border-[#D73C3C]')
+        let span = document.createElement('span')
+        span.setAttribute('class', 'pt-2 text-[#D73C3C] text-sm mb-5')
+        span.innerHTML = 'Please enter a valid email address'
+
+        email_required.appendChild(span)
+      }
+
+      if (message.value.length == 0) {
+        let message_required = document.getElementById('message-required')
+        message.classList.remove('mb-5', 'border-[#87A3A6]')
+        message.classList.add('border-[#D73C3C]')
+        let span = document.createElement('span')
+        span.setAttribute('class', 'pt-2 text-[#D73C3C] text-sm mb-5')
+        span.innerHTML = 'This field is required'
+
+        message_required.appendChild(span)
+      }
+
+      if (!queryType[0].checked && !queryType[1].checked) {
+        let queryType_required = document.getElementById('type-required')
+        let span = document.createElement('span')
+        span.setAttribute('class', 'block mt-2 text-[#D73C3C] text-sm')
+        span.innerHTML = 'Please select a query type'
+
+        queryType_required.appendChild(span)
+      }
+
+      if(!terms.checked) {
+        let terms_required = document.getElementById('terms-required')
+        let span = document.createElement('span')
+        span.setAttribute('class', 'block mt-2 text-[#D73C3C] text-sm')
+        span.innerHTML = 'To submit this form, please consent to being contacted'
+
+        terms_required.appendChild(span)
+      }
+  
   }
   
 }
+
+// ----------------------------
+// Reatividade dos campos (inputs, textarea, checkbox, radio)
+// ----------------------------
+function enableRealtimeValidation() {
+
+  // Essa função serve é para remover o estilo de erro do fname, lname e message, quando eles forem corrigidos e adicionarem o estilo padrão novamente, mas caso eu apague o que foi escrito nesses inputs a mensagem de erro retorna.
+  function handleTextField(field, containerId, message = 'This field is required') {
+    const container = document.getElementById(containerId)
+
+    field.addEventListener('input', () => {
+      const span = container.querySelector('span')
+
+      if (field.value.trim().length > 0) {
+        // Remove erro ao digitar
+        field.classList.remove('border-[#D73C3C]')
+        field.classList.add('border-[#87A3A6]') // Removi o 'mb-5'
+        if (span) span.remove()
+      } else {
+        // Volta o erro se apagar tudo
+        if (!span) {
+          field.classList.remove('border-[#87A3A6]')
+          field.classList.add('border-[#D73C3C]')
+          const newSpan = document.createElement('span')
+          newSpan.setAttribute('class', 'pt-2 text-[#D73C3C] text-sm mb-5')
+          newSpan.innerHTML = message
+          container.appendChild(newSpan)
+        }
+      }
+    })
+  }
+
+  // 🔹 Campos de texto e textarea
+  handleTextField(fname, 'fname-required')
+  handleTextField(lname, 'lname-required')
+  handleTextField(message, 'message-required')
+
+  // 🔹 Campo de e-mail com regex
+  const emailContainer = document.getElementById('email-required')
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  email.addEventListener('input', () => {
+    const span = emailContainer.querySelector('span')
+    const value = email.value.trim()
+
+    if (value.length === 0) {
+      email.classList.remove('border-[#87A3A6]')
+      email.classList.add('border-[#D73C3C]')
+      if (!span) {
+        const newSpan = document.createElement('span')
+        newSpan.setAttribute('class', 'pt-2 text-[#D73C3C] text-sm mb-5')
+        newSpan.innerHTML = 'This field is required'
+        emailContainer.appendChild(newSpan)
+      } else {
+        span.innerHTML = 'This field is required'
+      }
+    } else if (!regex.test(value)) {
+      email.classList.add('border-[#D73C3C]')
+      if (!span) {
+        const newSpan = document.createElement('span')
+        newSpan.setAttribute('class', 'pt-2 text-[#D73C3C] text-sm mb-5')
+        newSpan.innerHTML = 'Please enter a valid email address'
+        emailContainer.appendChild(newSpan)
+      } else {
+        span.innerHTML = 'Please enter a valid email address'
+      }
+    } else {
+      email.classList.remove('border-[#D73C3C]')
+      email.classList.add('border-[#87A3A6]', 'mb-5')
+      if (span) span.remove()
+    }
+  })
+
+  // 🔹 Checkbox (Terms)
+  const termsContainer = document.getElementById('terms-required')
+  terms.addEventListener('change', () => {
+    const span = termsContainer.querySelector('span')
+    if (terms.checked) {
+      if (span) span.remove()
+    } else {
+      if (!span) {
+        const newSpan = document.createElement('span')
+        newSpan.setAttribute('class', 'block mt-2 text-[#D73C3C] text-sm')
+        newSpan.innerHTML = 'To submit this form, please consent to being contacted'
+        termsContainer.appendChild(newSpan)
+      }
+    }
+  })
+
+  // 🔹 Radios (Query Type)
+  const queryTypeContainer = document.getElementById('type-required')
+  const radios = document.getElementsByName('type')
+
+  radios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      const span = queryTypeContainer.querySelector('span')
+      const anyChecked = Array.from(radios).some(r => r.checked)
+
+      if (anyChecked) {
+        // Remove erro quando algum for selecionado
+        if (span) span.remove()
+      } else {
+        // Volta o erro se todos forem desmarcados (caso raro)
+        if (!span) {
+          const newSpan = document.createElement('span')
+          newSpan.setAttribute('class', 'block mt-2 text-[#D73C3C] text-sm')
+          newSpan.innerHTML = 'Please select a query type'
+          queryTypeContainer.appendChild(newSpan)
+        }
+      }
+    })
+  })
+}
+
+// Ativa o comportamento dinâmico
+enableRealtimeValidation()
